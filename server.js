@@ -28,10 +28,10 @@ app.use(bodyParser.json());
 app.use(function (req, res, next) {
 
   var allowedOrigins = ['http://localhost', 'http://fast-ocean-20742.herokuapp.com', 'http://murmuring-caverns-76400.herokuapp.com', 'http://steven-daniell-jackson.github.io'];
-  // var origin = req.headers.origin;
-  // if(allowedOrigins.indexOf(origin) > -1){
-  //      res.setHeader('Access-Control-Allow-Origin', origin);
-  // }
+  var origin = req.headers.origin;
+  if(allowedOrigins.indexOf(origin) > -1){
+       res.setHeader('Access-Control-Allow-Origin', origin);
+  }
 
 
     // // Website you wish to allow to connect
