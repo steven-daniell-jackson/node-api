@@ -131,7 +131,7 @@ portfolio.save(function(err){
 
 });
 /*****************************************************
-END PORTFOLIo GET AND POST
+END PORTFOLIO GET AND POST
 *****************************************************/
 
 return api;

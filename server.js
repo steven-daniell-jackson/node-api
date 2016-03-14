@@ -27,7 +27,7 @@ app.use(bodyParser.json());
 // Add headers
 app.use(function (req, res, next) {
 
-  var allowedOrigins = ['http://localhost', 'http://fast-ocean-20742.herokuapp.com', 'http://murmuring-caverns-76400.herokuapp.com', 'http://steven-daniell-jackson.github.io', 'http://localhost:8100'];
+  var allowedOrigins = ['http://localhost', 'http://localhost:9005', 'http://fast-ocean-20742.herokuapp.com', 'http://murmuring-caverns-76400.herokuapp.com', 'http://steven-daniell-jackson.github.io', 'http://localhost:8100'];
   var origin = req.headers.origin;
   if(allowedOrigins.indexOf(origin) > -1){
        res.setHeader('Access-Control-Allow-Origin', origin);
