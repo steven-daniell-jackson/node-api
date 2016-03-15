@@ -13,6 +13,7 @@ var portfolioSchema = new Schema({
   comments: Boolean,
   newsletter: Boolean,
   landingpage: Boolean,
+  website: Boolean,
   other: Boolean
 });
 
