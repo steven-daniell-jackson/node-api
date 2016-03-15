@@ -10,7 +10,10 @@ var portfolioSchema = new Schema({
   imgsrc: String,
   recent: Boolean,
   date: Date,
-  comments: String
+  comments: String,
+  newsletter: Boolean,
+  landingpage: Boolean,
+  other: Boolean
 });
 
 // the schema is useless so far
