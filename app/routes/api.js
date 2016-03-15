@@ -113,6 +113,9 @@ clientName: req.body.clientname,
   imgsrc: req.body.imgsrc,
   workDone: req.body.workdone,
   date: req.body.date,
+  newsletter: req.body.newsletter,
+  other: req.body.other,
+  landingpage: req.body.landingpage,
   comments: req.body.comments
 });
 

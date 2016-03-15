@@ -8,12 +8,12 @@ var portfolioSchema = new Schema({
   clientName: String,
   url: String,
   imgsrc: String,
-  recent: String,
+  recent: Boolean,
   date: Date,
-  comments: String,
-  newsletter: String,
-  landingpage: String,
-  other: String
+  comments: Boolean,
+  newsletter: Boolean,
+  landingpage: Boolean,
+  other: Boolean
 });
 
 // the schema is useless so far
