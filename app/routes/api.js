@@ -83,7 +83,7 @@ api.get('/portfolio/', function(req,res){
 
     if (err) {
 
-     
+
       res.send(err);
       
       
@@ -109,24 +109,30 @@ api.get('/portfolio/', function(req,res){
            if (!portfolio[x].recent) {
              filteredResult.push(portfolio[x]);
            }
+           break;
            case 'landingpage':
            if (portfolio[x].landingpage) {
              filteredResult.push(portfolio[x]);
            }
+           break;
            case 'newsletter':
            if (portfolio[x].newsletter) {
+            // console.log(portfolio[x]);
              filteredResult.push(portfolio[x]);
+             console.log(filteredResult);
            }
+           break;
            case 'other':
            if (portfolio[x].other) {
              filteredResult.push(portfolio[x]);
            }
+           break;
            case 'recent':
            if (portfolio[x].recent && !portfolio[x].website) {
              filteredResult.push(portfolio[x]);
            }
            break;
-           
+
            default:
            res.send(portfolio);
          }
@@ -138,7 +144,7 @@ api.get('/portfolio/', function(req,res){
 
 
        }
-// console.log(filteredResult);
+console.log(filteredResult);
 return filteredResult;
 
 }
