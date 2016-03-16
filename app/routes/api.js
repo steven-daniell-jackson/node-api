@@ -106,7 +106,7 @@ api.get('/portfolio/', function(req,res){
            }
            break;
            case 'previous':
-           if (!portfolio[x].recent) {
+           if (!portfolio[x].recent && portfolio[x].website) {
              filteredResult.push(portfolio[x]);
            }
            break;
