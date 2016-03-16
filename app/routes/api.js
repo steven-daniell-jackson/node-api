@@ -73,28 +73,111 @@ END DAIRY GET AND POST
 
 
 /*****************************************************
-PORTFOLIo GET AND POST
+PORTFOLIO GET AND POST
 *****************************************************/
 
+// Get portfolio data from the database
+api.get('/portfolio/', function(req,res){
 
-// Get tasks data from the database
-api.get('/portfolio', function(req,res){
-
-  Portfolio.find({}, function(err, tasks){
+  Portfolio.find({}, function(err, portfolio){
 
     if (err) {
 
+     
       res.send(err);
       
       
     } else {
-      res.json(tasks);
+
+
+      var filterFunction =  function(filterQuery){
+        console.log(filterQuery)
+
+        var filteredResult = [];
+
+        for (var x in portfolio) {
+
+
+          switch (filterQuery) {
+
+            case 'latest':
+            if (portfolio[x].recent && portfolio[x].website) {
+             filteredResult.push(portfolio[x]);
+           }
+           break;
+           case 'previous':
+           if (!portfolio[x].recent) {
+             filteredResult.push(portfolio[x]);
+           }
+           case 'landingpage':
+           if (portfolio[x].landingpage) {
+             filteredResult.push(portfolio[x]);
+           }
+           case 'newsletter':
+           if (portfolio[x].newsletter) {
+             filteredResult.push(portfolio[x]);
+           }
+           case 'other':
+           if (portfolio[x].other) {
+             filteredResult.push(portfolio[x]);
+           }
+           case 'recent':
+           if (portfolio[x].recent && !portfolio[x].website) {
+             filteredResult.push(portfolio[x]);
+           }
+           break;
+           
+           default:
+           res.send(portfolio);
+         }
+
+
+
+
+
+
+
+       }
+// console.log(filteredResult);
+return filteredResult;
+
+}
+
+
+
+res.json(filterFunction(req.query.query));
+      // res.json({ query: req.query.query });
+
+
+      
 
     }
 
   });
 
 });
+
+
+// // Get portfolio data from the database
+// api.get('/portfolio', function(req,res){
+
+//   Portfolio.find({}, function(err, portfolio){
+
+//     if (err) {
+
+//       res.send(err);
+
+
+//     } else {
+//       res.json ({test: "message"});
+//       res.json(portfolio);
+
+//     }
+
+//   });
+
+// });
+
 
 
 
@@ -107,7 +190,7 @@ api.post('/add-portfolio', function(req, res){
 
 var portfolio = new Portfolio({
 
-clientName: req.body.clientname,
+  clientName: req.body.clientname,
   platform: req.body.platform,
   url: req.body.url,
   imgsrc: req.body.imgsrc,
