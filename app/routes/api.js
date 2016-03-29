@@ -1,5 +1,6 @@
 var Task = require('../models/task');
 var Portfolio = require('../models/portfolio');
+var Product = require('../models/products');
 var config = require('../../config');
 var secretKey = config.secretKey;
 
@@ -20,7 +21,6 @@ api.get('/tasks', function(req,res){
   Task.find({}, function(err, tasks){
 
     if (err) {
-
       res.send(err);
       
       
@@ -118,73 +118,40 @@ api.get('/portfolio/', function(req,res){
            case 'newsletter':
            if (portfolio[x].newsletter) {
             // console.log(portfolio[x]);
-             filteredResult.push(portfolio[x]);
-             console.log(filteredResult);
-           }
-           break;
-           case 'other':
-           if (portfolio[x].other) {
-             filteredResult.push(portfolio[x]);
-           }
-           break;
-           case 'recent':
-           if (portfolio[x].recent && !portfolio[x].website) {
-             filteredResult.push(portfolio[x]);
-           }
-           break;
-
-           default:
-           res.send(portfolio);
+            filteredResult.push(portfolio[x]);
+            console.log(filteredResult);
+          }
+          break;
+          case 'other':
+          if (portfolio[x].other) {
+           filteredResult.push(portfolio[x]);
          }
+         break;
+         case 'recent':
+         if (portfolio[x].recent && !portfolio[x].website) {
+           filteredResult.push(portfolio[x]);
+         }
+         break;
 
-
-
-
-
-
-
+         default:
+         res.send(portfolio);
        }
-console.log(filteredResult);
-return filteredResult;
-
-}
 
 
+     }
+     console.log(filteredResult);
+     return filteredResult;
 
-res.json(filterFunction(req.query.query));
+   }
+
+   res.json(filterFunction(req.query.query));
       // res.json({ query: req.query.query });
-
-
-      
 
     }
 
   });
 
 });
-
-
-// // Get portfolio data from the database
-// api.get('/portfolio', function(req,res){
-
-//   Portfolio.find({}, function(err, portfolio){
-
-//     if (err) {
-
-//       res.send(err);
-
-
-//     } else {
-//       res.json ({test: "message"});
-//       res.json(portfolio);
-
-//     }
-
-//   });
-
-// });
-
-
 
 
 // Post data to the database
@@ -226,6 +193,70 @@ portfolio.save(function(err){
 });
 /*****************************************************
 END PORTFOLIO GET AND POST
+*****************************************************/
+
+
+/*****************************************************
+PRODUCT GET AND POST
+*****************************************************/
+
+
+// Get tasks data from the database
+api.get('/products', function(req,res){
+
+  Product.find({}, function(err, tasks){
+
+    if (err) {
+      res.send(err);
+      
+      
+    } else {
+      res.json(tasks);
+
+    }
+
+  });
+
+});
+
+// Post data to the database
+api.post('/new-product', function(req, res){
+
+// Debug
+// console.log(req.body.url)
+
+
+var product = new Product({
+
+productName: req.body.productName,
+  productcode: req.body.productcode,
+  productDescription: req.body.productDescription,
+  productImage: req.body.productImage,
+  quantity: req.body.quantity,
+  price: req.body.price,
+  category: req.body.category,
+  subCategory: req.body.subCategory
+
+
+});
+
+
+
+product.save(function(err){
+  if (err) {
+    res.send(err);
+    return
+  }
+
+  res.json({message:'Product added'});
+
+});
+
+
+});
+
+/*****************************************************
+END PRODUCT GET AND POST
 *****************************************************/
 
 return api;
