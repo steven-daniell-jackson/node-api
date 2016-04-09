@@ -220,15 +220,18 @@ var filteredCategory = [];
     //    Loop through code data and return the results based on the window location
        for (x in code){
            
+           if (code[x].category){
            if (code[x].category.toLowerCase() == location.toLowerCase()) {
                filteredCategory.push(code[x]);
                
            }
-           
+           }
            
        }
        
-       (filteredCategory) ? res.json(filteredCategory) : res.json(code);
+       (filteredCategory.length > 0) ? res.json(filteredCategory) : res.json({message:'No results found'});
+       
+       
     //    console.log(filteredCategory);
        
     //   console.log(code) 
