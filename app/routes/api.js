@@ -197,21 +197,42 @@ END PORTFOLIO GET AND POST
 
 
 /*****************************************************
-PRODUCT GET AND POST
+CODE GET AND POST
 *****************************************************/
 
 
 // Get tasks data from the database
 api.get('/code', function(req,res){
+    
+var location = req.query.location;
+var filteredCategory = [];
 
-  Code.find({}, function(err, tasks){
+
+  Code.find({}, function(err, code){
 
     if (err) {
       res.send(err);
       
       
     } else {
-      res.json(tasks);
+       
+
+    //    Loop through code data and return the results based on the window location
+       for (x in code){
+           
+           if (code[x].category.toLowerCase() == location.toLowerCase()) {
+               filteredCategory.push(code[x]);
+               
+           }
+           
+           
+       }
+       
+       (filteredCategory) ? res.json(filteredCategory) : res.json(code);
+    //    console.log(filteredCategory);
+       
+    //   console.log(code) 
+    //   res.json(code);
 
     }
 
@@ -221,9 +242,6 @@ api.get('/code', function(req,res){
 
 // Post data to the database
 api.post('/new-code', function(req, res){
-
-// Debug
-// console.log(req.body.url)
 
 
 var code = new Code({
@@ -255,7 +273,7 @@ code.save(function(err){
 });
 
 /*****************************************************
-END PRODUCT GET AND POST
+END CODE GET AND POST
 *****************************************************/
 
 return api;
