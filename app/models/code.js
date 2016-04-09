@@ -3,13 +3,12 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 // create a schema
-var productSchema = new Schema({
-  productName: String,
-  productcode: String,
-  productDescription: String,
-  productImage: String,
-  quantity: String,
-  price: String,
+var codeSchema = new Schema({
+  codeTitle: String,
+  codeDescription: String,
+  codeSource: String,
+  codeImg: String,
+  codeDemo: String,
   category: String,
   subCategory: String
 
@@ -17,7 +16,7 @@ var productSchema = new Schema({
 
 // the schema is useless so far
 // we need to create a model using it
-var product = mongoose.model('Product', productSchema);
+var code = mongoose.model('Code', codeSchema);
 
 // make this available to our users in our Node applications
-module.exports = product;
+module.exports = code;

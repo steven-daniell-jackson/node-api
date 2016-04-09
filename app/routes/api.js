@@ -1,6 +1,6 @@
 var Task = require('../models/task');
 var Portfolio = require('../models/portfolio');
-var Product = require('../models/products');
+var Code = require('../models/code');
 var config = require('../../config');
 var secretKey = config.secretKey;
 
@@ -202,9 +202,9 @@ PRODUCT GET AND POST
 
 
 // Get tasks data from the database
-api.get('/products', function(req,res){
+api.get('/code', function(req,res){
 
-  Product.find({}, function(err, tasks){
+  Code.find({}, function(err, tasks){
 
     if (err) {
       res.send(err);
@@ -220,20 +220,19 @@ api.get('/products', function(req,res){
 });
 
 // Post data to the database
-api.post('/new-product', function(req, res){
+api.post('/new-code', function(req, res){
 
 // Debug
 // console.log(req.body.url)
 
 
-var product = new Product({
+var code = new Code({
 
-productName: req.body.productName,
-  productcode: req.body.productcode,
-  productDescription: req.body.productDescription,
-  productImage: req.body.productImage,
-  quantity: req.body.quantity,
-  price: req.body.price,
+  codeTitle: req.body.codeTitle,
+  codeDescription: req.body.codeDescription,
+  codeSource: req.body.codeSource,
+  codeImg: req.body.codeImg,
+  codeDemo: req.body.codeDemo,
   category: req.body.category,
   subCategory: req.body.subCategory
 
@@ -242,13 +241,13 @@ productName: req.body.productName,
 
 
 
-product.save(function(err){
+code.save(function(err){
   if (err) {
     res.send(err);
     return
   }
 
-  res.json({message:'Product added'});
+  res.json({message:'Code added'});
 
 });
 
