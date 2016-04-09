@@ -205,8 +205,10 @@ CODE GET AND POST
 api.get('/code', function(req,res){
     
 var location = req.query.location;
+var locationSplit = location.split("/")
 var filteredCategory = [];
 
+console.log(locationSplit)
 
   Code.find({}, function(err, code){
 
@@ -221,7 +223,9 @@ var filteredCategory = [];
        for (x in code){
            
            if (code[x].category){
-           if (code[x].category.toLowerCase() == location.toLowerCase()) {
+           if (code[x].category.toLowerCase() == locationSplit[0].toLowerCase()) {
+              
+              if (code[x].subCategory.toLowerCase() == locationSplit[1].toLowerCase())
                filteredCategory.push(code[x]);
                
            }
