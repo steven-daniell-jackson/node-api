@@ -201,7 +201,7 @@ CODE GET AND POST
 *****************************************************/
 
 
-// Get tasks data from the database
+// Get code data from the database
 api.get('/code', function(req,res){
     
 var location = req.query.location;
@@ -240,6 +240,25 @@ console.log(locationSplit)
        
     //   console.log(code) 
     //   res.json(code);
+
+    }
+
+  });
+
+});
+
+// Get tasks data from the database
+api.get('/code-category', function(req,res){  
+
+  Code.find({}, function(err, code){
+
+    if (err) {
+      res.send(err);
+      
+      
+    } else {
+       
+      res.json(code);
 
     }
 
