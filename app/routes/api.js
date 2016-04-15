@@ -1,6 +1,7 @@
 var Task = require('../models/task');
 var Portfolio = require('../models/portfolio');
 var Code = require('../models/code');
+var TaskManager = require('../models/task-manager');
 var config = require('../../config');
 var secretKey = config.secretKey;
 
@@ -247,7 +248,7 @@ console.log(locationSplit)
 
 });
 
-// Get tasks data from the database
+// Get code data from the database
 api.get('/all-code-entries', function(req,res){  
 
   Code.find({}, function(err, code){
@@ -302,7 +303,67 @@ code.save(function(err){
 END CODE GET AND POST
 *****************************************************/
 
+
+/*****************************************************
+TASK MANAGER
+*****************************************************/
+
+// Get task manager data from the database
+api.get('/task-manager', function(req,res){  
+
+  TaskManager.find({}, function(err, code){
+
+    if (err) {
+      res.send(err);
+      
+      
+    } else {
+       
+      res.json(code);
+
+    }
+
+  });
+
+});
+
+// Post task manager data to the database
+api.post('/new-task-manager', function(req, res){
+
+
+var taskManager = new TaskManager({
+
+  taskTitle: req.body.taskTitle,
+  archived: req.body.archived,
+  checked: req.body.checked
+
+
+});
+
+
+
+taskManager.save(function(err){
+  if (err) {
+    res.send(err);
+    return
+  }
+
+  res.json({message:'Task Manager Entry added'});
+
+});
+
+
+});
+
+/*****************************************************
+END TASK MANAGER GET AND POST
+*****************************************************/
+
+
+
+
 return api;
 
 }
+
 
