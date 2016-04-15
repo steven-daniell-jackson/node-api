@@ -248,7 +248,7 @@ console.log(locationSplit)
 });
 
 // Get tasks data from the database
-api.get('/code-category', function(req,res){  
+api.get('/all-code-entries', function(req,res){  
 
   Code.find({}, function(err, code){
 
