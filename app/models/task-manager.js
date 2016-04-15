@@ -6,6 +6,7 @@ var Schema = mongoose.Schema;
 var taskSchema = new Schema({
   taskTitle: String,
   checked: String,
+  deleted: String,
   archived: String
 });
 

@@ -270,7 +270,6 @@ api.get('/all-code-entries', function(req,res){
 // Post data to the database
 api.post('/new-code', function(req, res){
 
-
 var code = new Code({
 
   codeTitle: req.body.codeTitle,
@@ -324,8 +323,42 @@ api.get('/task-manager', function(req,res){
     }
 
   });
+  
 
 });
+
+
+// Post task manager data to the database
+api.post('/task-manager/update', function(req, res){
+
+// console.log(req);
+
+var taskManager = new TaskManager({
+
+id: req.body._id,
+taskTitle: req.body.taskTitle,
+archived: req.body.archived,
+checked: req.body.checked,
+deleted: req.body.deleted,
+
+});
+
+
+console.log(taskManager);
+
+// taskManager.save(function(err){
+//   if (err) {
+//     res.send(err);
+//     return
+//   }
+
+//   res.json({message:'Task Manager Entry added'});
+
+// });
+
+
+});
+
 
 // Post task manager data to the database
 api.post('/new-task-manager', function(req, res){
@@ -335,11 +368,11 @@ var taskManager = new TaskManager({
 
   taskTitle: req.body.taskTitle,
   archived: req.body.archived,
+  deleted: req.body.deleted,
   checked: req.body.checked
 
 
 });
-
 
 
 taskManager.save(function(err){
