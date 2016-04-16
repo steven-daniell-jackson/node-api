@@ -334,45 +334,98 @@ api.post('/task-manager/update', function(req, res){
 // console.log(req);
 
 var taskManager = new TaskManager({
-
-id: req.body._id,
-taskTitle: req.body.taskTitle,
-archived: req.body.archived,
-checked: req.body.checked,
-deleted: req.body.deleted,
+_id: req.body._id,
+checked: req.body.checked
 
 });
 
+if(taskManager.checked == "true") {
+  
+  TaskManager.findOneAndUpdate({_id:taskManager._id}, 
+{
+  $set:
+  {
+    checked:"false"
 
-console.log(taskManager);
+}}, 
+function (err) {
+  // res.send({"message" : "test"});
+  
+  console.log("set false");
+  
+});
+  
+} else {
+  
+  TaskManager.findOneAndUpdate({_id:taskManager._id}, 
+{
+  $set:
+  {
+    checked:"true"
 
-// taskManager.save(function(err){
-//   if (err) {
-//     res.send(err);
-//     return
-//   }
-
-//   res.json({message:'Task Manager Entry added'});
-
-// });
-
+}}, 
+function (err) {
+  console.log("set true");
+  
+});
+  
+}
 
 });
 
+// Post task manager data to the database
+api.post('/task-manager/archive', function(req, res){
+
+// console.log(req);
+  
+  TaskManager.findOneAndUpdate({_id: req.body._id,}, 
+{
+  $set:
+  {
+    checked:"true",
+    archived:"true"
+
+}}, 
+function (err) {
+  // res.send({"message" : "test"});
+  
+  console.log("set false");
+  
+});
+  
+
+});
+
+// Post task manager data to the database
+api.post('/task-manager/delete', function(req, res){
+
+// console.log(req);
+  
+  TaskManager.findByIdAndRemove(req.body._id, 
+function (err) {
+  // res.send({"message" : "test"});
+  
+  console.log("deleted");
+  
+});
+  
+
+});
 
 // Post task manager data to the database
 api.post('/new-task-manager', function(req, res){
 
+// console.log(req);
 
 var taskManager = new TaskManager({
 
   taskTitle: req.body.taskTitle,
-  archived: req.body.archived,
-  deleted: req.body.deleted,
-  checked: req.body.checked
+  archived: "false",
+  checked: "false"
 
 
 });
+
 
 
 taskManager.save(function(err){
