@@ -351,7 +351,7 @@ if(taskManager.checked == "true") {
 function (err) {
   // res.send({"message" : "test"});
   
-  console.log("set false");
+  // console.log("set false");
   
 });
   
@@ -365,7 +365,7 @@ function (err) {
 
 }}, 
 function (err) {
-  console.log("set true");
+  // console.log("set true");
   
 });
   
@@ -389,7 +389,7 @@ api.post('/task-manager/archive', function(req, res){
 function (err) {
   // res.send({"message" : "test"});
   
-  console.log("set false");
+  // console.log("set false");
   
 });
   
@@ -405,7 +405,7 @@ api.post('/task-manager/delete', function(req, res){
 function (err) {
   // res.send({"message" : "test"});
   
-  console.log("deleted");
+  // console.log("deleted");
   
 });
   
