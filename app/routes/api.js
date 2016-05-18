@@ -1,7 +1,7 @@
 var Task = require('../models/task');
 var Portfolio = require('../models/portfolio');
 var Code = require('../models/code');
-var TaskManager = require('../models/task-manager');
+var Videos = require('../models/videos');
 var config = require('../../config');
 var secretKey = config.secretKey;
 
@@ -248,8 +248,8 @@ console.log(locationSplit)
 
 });
 
-// Get code data from the database
-api.get('/all-code-entries', function(req,res){  
+// Get tasks data from the database
+api.get('/code-category', function(req,res){  
 
   Code.find({}, function(err, code){
 
@@ -269,6 +269,7 @@ api.get('/all-code-entries', function(req,res){
 
 // Post data to the database
 api.post('/new-code', function(req, res){
+
 
 var code = new Code({
 
@@ -298,19 +299,11 @@ code.save(function(err){
 
 });
 
-/*****************************************************
-END CODE GET AND POST
-*****************************************************/
 
+// Get tasks data from the database
+api.get('/videos', function(req,res){  
 
-/*****************************************************
-TASK MANAGER
-*****************************************************/
-
-// Get task manager data from the database
-api.get('/task-manager', function(req,res){  
-
-  TaskManager.find({}, function(err, code){
+  Videos.find({}, function(err, code){
 
     if (err) {
       res.send(err);
@@ -323,133 +316,45 @@ api.get('/task-manager', function(req,res){
     }
 
   });
-  
 
 });
 
+// Post data to the database
+api.post('/new-video', function(req, res){
 
-// Post task manager data to the database
-api.post('/task-manager/update', function(req, res){
 
-// console.log(req);
+var video = new Videos({
 
-var taskManager = new TaskManager({
-_id: req.body._id,
-checked: req.body.checked
-
-});
-
-if(taskManager.checked == "true") {
-  
-  TaskManager.findOneAndUpdate({_id:taskManager._id}, 
-{
-  $set:
-  {
-    checked:"false"
-
-}}, 
-function (err) {
-  // res.send({"message" : "test"});
-  
-  // console.log("set false");
-  
-});
-  
-} else {
-  
-  TaskManager.findOneAndUpdate({_id:taskManager._id}, 
-{
-  $set:
-  {
-    checked:"true"
-
-}}, 
-function (err) {
-  // console.log("set true");
-  
-});
-  
-}
-
-});
-
-// Post task manager data to the database
-api.post('/task-manager/archive', function(req, res){
-
-// console.log(req);
-  
-  TaskManager.findOneAndUpdate({_id: req.body._id,}, 
-{
-  $set:
-  {
-    checked:"true",
-    archived:"true"
-
-}}, 
-function (err) {
-  // res.send({"message" : "test"});
-  
-  // console.log("set false");
-  
-});
-  
-
-});
-
-// Post task manager data to the database
-api.post('/task-manager/delete', function(req, res){
-
-// console.log(req);
-  
-  TaskManager.findByIdAndRemove(req.body._id, 
-function (err) {
-  // res.send({"message" : "test"});
-  
-  // console.log("deleted");
-  
-});
-  
-
-});
-
-// Post task manager data to the database
-api.post('/new-task-manager', function(req, res){
-
-// console.log(req);
-
-var taskManager = new TaskManager({
-
-  taskTitle: req.body.taskTitle,
-  archived: "false",
-  checked: "false"
+  videoTitle: req.body.videoTitle,
+  videoLink: req.body.videoLink,
+  videoDescription: req.body.videoDescription,
+  hero: req.body.hero,
+  videoType: req.body.videoType
 
 
 });
 
 
 
-taskManager.save(function(err){
+video.save(function(err){
   if (err) {
     res.send(err);
     return
   }
 
-  res.json({message:'Task Manager Entry added'});
+  res.json({message:'Code added'});
 
 });
 
 
 });
+
 
 /*****************************************************
-END TASK MANAGER GET AND POST
+END CODE GET AND POST
 *****************************************************/
-
-
-
 
 return api;
 
 }
-
 
